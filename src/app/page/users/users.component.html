@@ -1,19 +1,19 @@
 <div class="d-flex justify-content-between">
     <div>
-        <input (input)="search('searchInpt')" type="text" pInputText [(ngModel)]="searchValue" placeholder="search..."/>
+        <input (input)="search()" type="text" pInputText [(ngModel)]="searchValue" placeholder="search..."/>
     </div>
     
     <div class="card flex justify-content-center">
         <p-sidebar [(visible)]="sidebarVisible" position="right">
             <div class="filter-card">
                 <h3>Gender</h3>
-                <div class="d-flex flex-row justify-content-start">
+                <div class="d-flex flex-row justify-content-start mr-1">
                     <div class="d-flex justify-content-center">
-                        <p-checkbox [(ngModel)]="gender" inputId="male" value="male" (click)="search('byGender')"></p-checkbox>
+                        <p-checkbox [(ngModel)]="gender" inputId="male" value="male" (click)="search()"></p-checkbox>
                         <label class="d-flex align-items-center" for="male"  class="mr-1">Male</label>
                     </div>
                     <div class="d-flex justify-content-center mr-1">
-                        <p-checkbox [(ngModel)]="gender" inputId="female" value="female" (click)="search('byGender')"></p-checkbox>
+                        <p-checkbox [(ngModel)]="gender" inputId="female" value="female" (click)="search()"></p-checkbox>
                         <label class="d-flex align-items-center" for="female"  class="mr-1">Female</label>
                     </div>
                 </div>
@@ -22,24 +22,32 @@
                 <h3>Age</h3>
                 <p-inputNumber [(ngModel)]="ageNumber" [showButtons]="true" spinnerMode="vertical" inputId="vertical" decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" ></p-inputNumber>
                 <div class="d-flex flex-row justify-content-around mt-2 mb-2">
-                    <div class="d-flex justify-content-center mr-1">
-                        <p-radioButton [(ngModel)]="ageText" name="age" inputId="equal" value="equal"></p-radioButton>
-                        <label class="d-flex align-items-center" for="equal"  class="mr-1">equal</label>
-                    </div>
-                    <div class="d-flex justify-content-center mr-1">
-                        <p-radioButton [(ngModel)]="ageText" name="age" inputId="greater" value="greater"></p-radioButton>
-                        <label class="d-flex align-items-center" for="greater"  class="mr-1">greater</label>
-                    </div>
-                    <div class="d-flex justify-content-center mr-1">
-                        <p-radioButton [(ngModel)]="ageText" name="age" inputId="smaller" value="smaller"></p-radioButton>
-                        <label class="d-flex align-items-center" for="smaller"  class="mr-1">smaller</label>
+                    <div class="d-flex justify-content-center mr-1" *ngFor="let filter of ageFilter">
+                        <p-radioButton [(ngModel)]="ageText" name="age" inputId="equal" [value]="filter"></p-radioButton>
+                        <label class="d-flex align-items-center" [for]="filter"  class="mr-1">{{filter}}</label>
                     </div>
                 </div>
-                <p-button label="submit" (click)="search('byAge')"></p-button>
+                <p-button label="submit" (click)="search()"></p-button>
+            </div>
+            <div class="filter-card">
+                <h3>eye color</h3>
+                <div class="d-flex flex-wrap" >
+                    <div class="d-flex justify-content-center mr-1 mt-1 w-50" *ngFor="let color of eyeColors">
+                        <p-checkbox [(ngModel)]="eyeColor" [inputId]="color" [value]="color" (click)="search()"></p-checkbox>
+                        <label class="d-flex align-items-center" [for]="color"  class="mr-1">{{color}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-card">
+                <h3>birthdate</h3>
+                <div class="mb-2">
+                    <p-calendar [(ngModel)]="birthdateRange" [inline]="true" [showWeek]="true" selectionMode="range" [readonlyInput]="true"></p-calendar>
+                </div>
+                <p-button label="submit" (click)="byDate()"></p-button>
             </div>
             <p-button label="remove filters" (click)="removeFilters()" class="mr-1"></p-button>
         </p-sidebar>
-        <p-button (click)="sidebarVisible = true">filter</p-button>
+        <p-button icon="pi pi-filter" (click)="sidebarVisible = true" label="filter"></p-button>
     </div>
 </div>
 

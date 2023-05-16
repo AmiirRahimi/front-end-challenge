@@ -24,6 +24,10 @@ body {
     flex-direction: row;
 }
 
+.flex-wrap{
+    flex-wrap: wrap;
+}
+
 .justify-content-between{
     justify-content: space-between;
 }
@@ -44,6 +48,10 @@ body {
     text-align: center !important;
 }
 
+.mt-1{
+    margin-top: .5rem;
+}
+
 .mt-2{
     margin-top: 1rem;
 }
@@ -54,4 +62,8 @@ body {
 
 .mr-1{
     margin-left: .5rem;
+}
+
+.w-50{
+    width: 35%;
 }

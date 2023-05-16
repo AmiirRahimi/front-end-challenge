@@ -13,11 +13,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { RadioButtonModule } from 'primeng/radiobutton';
-
-
-
-
-
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -36,7 +32,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     CheckboxModule,
     InputNumberModule,
     ButtonModule,
-    RadioButtonModule
+    RadioButtonModule,
+    CalendarModule
   ],
   exports:[UsersComponent],
   providers:[UserService]
