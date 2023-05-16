@@ -159,6 +159,8 @@ export class UsersComponent implements OnInit {
     this.eyeColor = []
     this.ageText = 'equal'
     this.ageNumber = 0
+    this.maxBirthdateRange = ''
+    this.minBirthdateRange = ''
   }
 
   getColors(){
