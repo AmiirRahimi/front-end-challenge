@@ -1,23 +1,72 @@
-<div class="card">
-    <p-table [value]="users" [tableStyle]="{ 'min-width': '50rem' }">
+<div class="d-flex justify-content-between">
+    <div>
+        <input (input)="search('searchInpt')" type="text" pInputText [(ngModel)]="searchValue" placeholder="search..."/>
+    </div>
+    
+    <div class="card flex justify-content-center">
+        <p-sidebar [(visible)]="sidebarVisible" position="right">
+            <div class="filter-card">
+                <h3>Gender</h3>
+                <div class="d-flex flex-row justify-content-start">
+                    <div class="d-flex justify-content-center">
+                        <p-checkbox [(ngModel)]="gender" inputId="male" value="male" (click)="search('byGender')"></p-checkbox>
+                        <label class="d-flex align-items-center" for="male"  class="mr-1">Male</label>
+                    </div>
+                    <div class="d-flex justify-content-center mr-1">
+                        <p-checkbox [(ngModel)]="gender" inputId="female" value="female" (click)="search('byGender')"></p-checkbox>
+                        <label class="d-flex align-items-center" for="female"  class="mr-1">Female</label>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-card">
+                <h3>Age</h3>
+                <p-inputNumber [(ngModel)]="ageNumber" [showButtons]="true" spinnerMode="vertical" inputId="vertical" decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" ></p-inputNumber>
+                <div class="d-flex flex-row justify-content-around mt-2 mb-2">
+                    <div class="d-flex justify-content-center mr-1">
+                        <p-radioButton [(ngModel)]="ageText" name="age" inputId="equal" value="equal"></p-radioButton>
+                        <label class="d-flex align-items-center" for="equal"  class="mr-1">equal</label>
+                    </div>
+                    <div class="d-flex justify-content-center mr-1">
+                        <p-radioButton [(ngModel)]="ageText" name="age" inputId="greater" value="greater"></p-radioButton>
+                        <label class="d-flex align-items-center" for="greater"  class="mr-1">greater</label>
+                    </div>
+                    <div class="d-flex justify-content-center mr-1">
+                        <p-radioButton [(ngModel)]="ageText" name="age" inputId="smaller" value="smaller"></p-radioButton>
+                        <label class="d-flex align-items-center" for="smaller"  class="mr-1">smaller</label>
+                    </div>
+                </div>
+                <p-button label="submit" (click)="search('byAge')"></p-button>
+            </div>
+            <p-button label="remove filters" (click)="removeFilters()" class="mr-1"></p-button>
+        </p-sidebar>
+        <p-button (click)="sidebarVisible = true">filter</p-button>
+    </div>
+</div>
+
+<div class="card-container mt-2">
+    <p-table [value]="this.filteresUsers" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
-                <th>firstName</th>
-                <th>lastName</th>
-                <th>age</th>
-                <th>gender</th>
-                <th>email</th>
-                <th>phone</th>
-                <th>eyeColor</th>
-                <th>birthdate</th>
+                <th class="t-center">firstName</th>
+                <th class="t-center">lastName</th>
+                <th class="t-center">age</th>
+                <th class="t-center">gender</th>
+                <th class="t-center">email</th>
+                <th class="t-center">phone</th>
+                <th class="t-center">eyeColor</th>
+                <th class="t-center">birthdate</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template pTemplate="body" let-user>
             <tr>
-                <td class="t-center">{{ product.code }}</td>
-                <td class="t-center">{{ product.name }}</td>
-                <td class="t-center">{{ product.category }}</td>
-                <td class="t-center">{{ product.quantity }}</td>
+                <td class="t-center">{{ user.firstName }}</td>
+                <td class="t-center">{{ user.lastName }}</td>
+                <td class="t-center">{{ user.age }}</td>
+                <td class="t-center">{{ user.gender }}</td>
+                <td class="t-center">{{ user.email }}</td>
+                <td class="t-center">{{ user.phone }}</td>
+                <td class="t-center">{{ user.eyeColor }}</td>
+                <td class="t-center">{{ user.birthdate }}</td>
             </tr>
         </ng-template>
     </p-table>

@@ -1,8 +1,14 @@
-
-.card {
+.card-container {
     background: var(--surface-card);
     padding: 2rem;
     border-radius: 10px;
     margin-bottom: 1rem;
+}
+
+.filter-card{
+    border: 1px solid #ced4da;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
 }
     
