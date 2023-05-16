@@ -101,19 +101,21 @@ export class UsersComponent implements OnInit {
   byDate(){
     const [x, minMonth, minDay, minYear] = String(this.minBirthdateRange).split(' ')
     const [y, maxMonth, maxDay, maxYear] = String(this.maxBirthdateRange).split(' ')
-    this.filteresUsers = this.filteresUsers.filter(user => {
-      const [birthYear, birthMonth, birthDay] = this.splitBirthDate(user.birthdate)
-      if (Number(minYear) <= Number(birthYear) && Number(birthYear) <= Number(maxYear)) {    
-        if (Number(this.changeMonth(minMonth)) <= Number(birthMonth) && Number(birthMonth) <= Number(this.changeMonth(maxMonth))) {   
-          if (Number(this.changeMonth(minMonth)) == Number(this.changeMonth(maxMonth))) {
-            if (Number(minDay) <= Number(birthDay) && Number(birthDay) <= Number(maxDay)) {
-              return user
+    if (Number(minDay) > 0 && Number(minDay) > 0) {
+      this.filteresUsers = this.filteresUsers.filter(user => {
+        const [birthYear, birthMonth, birthDay] = this.splitBirthDate(user.birthdate)
+        if (Number(minYear) <= Number(birthYear) && Number(birthYear) <= Number(maxYear)) {    
+          if (Number(this.changeMonth(minMonth)) <= Number(birthMonth) && Number(birthMonth) <= Number(this.changeMonth(maxMonth))) {   
+            if (Number(this.changeMonth(minMonth)) == Number(this.changeMonth(maxMonth))) {
+              if (Number(minDay) <= Number(birthDay) && Number(birthDay) <= Number(maxDay)) {
+                return user
+              }
             }
+            return user
           }
-          return user
         }
-      }
-    })
+      })
+    }
   }
 
   changeMonth(month: string): Number{
