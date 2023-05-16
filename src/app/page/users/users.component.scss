@@ -11,4 +11,10 @@
     margin-bottom: 1rem;
     padding: 1rem;
 }
+
+::ng-deep{
+    .p-datepicker-inline{
+        width: 100% !important;
+    }
+}
     

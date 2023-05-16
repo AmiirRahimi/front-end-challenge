@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { ageFilter } from 'src/shared/constants/usersTableFilter';
+import { MonthEnums } from 'src/shared/enums/monthEnum';
 import { UserService } from 'src/shared/services/user.service';
 
 @Component({
@@ -13,9 +13,7 @@ export class UsersComponent implements OnInit {
   users: Array<any> = []
   filteresUsers: Array<any> = []
   searchValue: any = ''
-  items: Array<string> = ['amir']
   sidebarVisible!: boolean
-  genderForm!: FormGroup
   checked: boolean = true
   gender: [] = []
   ageText: string = ''
@@ -23,17 +21,17 @@ export class UsersComponent implements OnInit {
   ageFilter: Array<string> = []
   eyeColor: Array<string> = []
   eyeColors: Array<string> = []
-  birthdateRange: Array<string> = []
+  minBirthdateRange: any = ''
+  maxBirthdateRange: any = ''
 
   constructor(
     private userService: UserService, 
-    private fb: FormBuilder
     ){}
 
   ngOnInit(): void {
     this.ageFilter = ageFilter
     this.getUsersList()
-  }  
+  }
 
   getUsersList(){
     this.userService.getUsersList().subscribe(res => {
@@ -49,6 +47,7 @@ export class UsersComponent implements OnInit {
     this.byGender()
     this.byEyeColor()
     this.byAge()
+    this.byDate()
   }
 
   bySearchInpt(){
@@ -100,8 +99,58 @@ export class UsersComponent implements OnInit {
   }
 
   byDate(){
-    console.log(this.birthdateRange);
-    
+    const [x, minMonth, minDay, minYear] = String(this.minBirthdateRange).split(' ')
+    const [y, maxMonth, maxDay, maxYear] = String(this.maxBirthdateRange).split(' ')
+    this.filteresUsers = this.filteresUsers.filter(user => {
+      const [birthYear, birthMonth, birthDay] = this.splitBirthDate(user.birthdate)
+      if (Number(minYear) <= Number(birthYear) && Number(birthYear) <= Number(maxYear)) {    
+        if (Number(this.changeMonth(minMonth)) <= Number(birthMonth) && Number(birthMonth) <= Number(this.changeMonth(maxMonth))) {   
+          if (Number(this.changeMonth(minMonth)) == Number(this.changeMonth(maxMonth))) {
+            if (Number(minDay) <= Number(birthDay) && Number(birthDay) <= Number(maxDay)) {
+              return user
+            }
+          }
+          return user
+        }
+      }
+    })
+  }
+
+  changeMonth(month: string): Number{
+    switch (month) {
+      case 'Jan':
+        return 1
+      case 'Feb':
+        return 1
+      case 'Mar':
+        return 3
+      case 'Apr':
+        return 4
+      case 'May':
+        return 5
+      case 'Jun':
+        return 6
+      case 'Jul':
+        return 7
+      case 'Aug':
+        return 8
+      case 'Sep':
+        return 9
+      case 'Oct':
+        return 10
+      case 'Sep':
+        return 11
+      case 'Oct':
+        return 12
+      default:
+        return 0
+    }
+  }
+
+  splitBirthDate(fullDate: string){
+    const date = fullDate.split('T')[0]
+    const [year,  month, day] = date.split('-')
+    return [year, month, day]
   }
 
   removeFilters(){

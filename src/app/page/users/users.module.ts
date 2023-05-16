@@ -25,6 +25,7 @@ import { CalendarModule } from 'primeng/calendar';
     InputTextModule,
     FormsModule,
     SpeedDialModule,
+    CalendarModule,
     SidebarModule,
     BrowserAnimationsModule,
     BrowserModule,
@@ -33,7 +34,6 @@ import { CalendarModule } from 'primeng/calendar';
     InputNumberModule,
     ButtonModule,
     RadioButtonModule,
-    CalendarModule
   ],
   exports:[UsersComponent],
   providers:[UserService]

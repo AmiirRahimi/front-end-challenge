@@ -41,9 +41,14 @@
             <div class="filter-card">
                 <h3>birthdate</h3>
                 <div class="mb-2">
-                    <p-calendar [(ngModel)]="birthdateRange" [inline]="true" [showWeek]="true" selectionMode="range" [readonlyInput]="true"></p-calendar>
+                    <h5>from:</h5>
+                    <p-calendar [(ngModel)]="minBirthdateRange" class="max-w-full" [inline]="true" [showWeek]="true"></p-calendar>
                 </div>
-                <p-button label="submit" (click)="byDate()"></p-button>
+                <div class="mb-2">
+                    <h5>to:</h5>
+                    <p-calendar [(ngModel)]="maxBirthdateRange" class="max-w-full" [inline]="true" [showWeek]="true"  [readonlyInput]="true"></p-calendar>
+                </div>
+                <p-button label="submit" (click)="search()"></p-button>
             </div>
             <p-button label="remove filters" (click)="removeFilters()" class="mr-1"></p-button>
         </p-sidebar>
@@ -74,7 +79,7 @@
                 <td class="t-center">{{ user.email }}</td>
                 <td class="t-center">{{ user.phone }}</td>
                 <td class="t-center">{{ user.eyeColor }}</td>
-                <td class="t-center">{{ user.birthdate }}</td>
+                <td class="t-center">{{ user.birthdate.split('T')[0] }}</td>
             </tr>
         </ng-template>
     </p-table>
