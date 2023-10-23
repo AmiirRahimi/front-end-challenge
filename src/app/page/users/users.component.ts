@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ageFilter } from 'src/shared/constants/usersTableFilter';
-import { MonthEnums } from 'src/shared/enums/monthEnum';
-import { UserService } from 'src/shared/services/user.service';
+import { UserModel } from 'src/shared/models/userInfoModel';
+import { UsersService } from './users.service';
 
 @Component({
   selector: 'app-users',
@@ -10,8 +10,8 @@ import { UserService } from 'src/shared/services/user.service';
 })
 export class UsersComponent implements OnInit {
   
-  users: Array<any> = []
-  filteresUsers: Array<any> = []
+  users: Array<UserModel> = []
+  filterUsers: Array<any> = []
   searchValue: any = ''
   sidebarVisible!: boolean
   checked: boolean = true
@@ -25,7 +25,7 @@ export class UsersComponent implements OnInit {
   maxBirthdateRange: any = ''
 
   constructor(
-    private userService: UserService, 
+    private userService: UsersService, 
     ){}
 
   ngOnInit(): void {
@@ -36,13 +36,13 @@ export class UsersComponent implements OnInit {
   getUsersList(){
     this.userService.getUsersList().subscribe(res => {
       this.users = res
-      this.filteresUsers = this.users
+      this.filterUsers = this.users
       this.getColors()
     })
   }
 
   search(){
-    this.filteresUsers = this.users
+    this.filterUsers = this.users
     this.bySearchInpt()
     this.byGender()
     this.byEyeColor()
@@ -51,7 +51,7 @@ export class UsersComponent implements OnInit {
   }
 
   bySearchInpt(){
-    this.filteresUsers = this.filteresUsers.filter(user => {
+    this.filterUsers = this.filterUsers.filter(user => {
       if (user['firstName'].includes(this.searchValue) || user['lastName'].includes(this.searchValue)) {
         return user
       }
@@ -60,7 +60,7 @@ export class UsersComponent implements OnInit {
 
   byGender(){
     if (this.gender.length != 0) {
-      this.filteresUsers = this.filteresUsers.filter(user => {
+      this.filterUsers = this.filterUsers.filter(user => {
         for (const i of this.gender) {
           if (user.gender == i) {
             return user
@@ -73,13 +73,13 @@ export class UsersComponent implements OnInit {
   byAge(){
     switch (this.ageText) {
       case 'equal':
-        this.filteresUsers = this.filteresUsers.filter(user => user.age == this.ageNumber)
+        this.filterUsers = this.filterUsers.filter(user => user.age == this.ageNumber)
         break;
       case 'greater':
-        this.filteresUsers = this.filteresUsers.filter(user => user.age > this.ageNumber)
+        this.filterUsers = this.filterUsers.filter(user => user.age > this.ageNumber)
         break;
       case 'smaller':
-        this.filteresUsers = this.filteresUsers.filter(user => user.age < this.ageNumber)
+        this.filterUsers = this.filterUsers.filter(user => user.age < this.ageNumber)
         break;
       default:
         break;
@@ -88,7 +88,7 @@ export class UsersComponent implements OnInit {
 
   byEyeColor(){
     if (this.eyeColor.length != 0) {
-      this.filteresUsers = this.filteresUsers.filter(user => {
+      this.filterUsers = this.filterUsers.filter(user => {
         for (const i of this.eyeColor) {
           if (user.eyeColor == i) {
             return user
@@ -102,7 +102,7 @@ export class UsersComponent implements OnInit {
     const [x, minMonth, minDay, minYear] = String(this.minBirthdateRange).split(' ')
     const [y, maxMonth, maxDay, maxYear] = String(this.maxBirthdateRange).split(' ')
     if (Number(minDay) > 0 && Number(minDay) > 0) {
-      this.filteresUsers = this.filteresUsers.filter(user => {
+      this.filterUsers = this.filterUsers.filter(user => {
         const [birthYear, birthMonth, birthDay] = this.splitBirthDate(user.birthdate)
         if (Number(minYear) <= Number(birthYear) && Number(birthYear) <= Number(maxYear)) {    
           if (Number(this.changeMonth(minMonth)) <= Number(birthMonth) && Number(birthMonth) <= Number(this.changeMonth(maxMonth))) {   
@@ -156,7 +156,7 @@ export class UsersComponent implements OnInit {
   }
 
   removeFilters(){
-    this.filteresUsers = this.users
+    this.filterUsers = this.users
     this.gender = []
     this.eyeColor = []
     this.ageText = 'equal'

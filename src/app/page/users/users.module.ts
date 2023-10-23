@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsersComponent } from './users.component';
 import { TableModule } from 'primeng/table';
-import { UserService } from 'src/shared/services/user.service';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { SidebarModule } from 'primeng/sidebar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,6 +13,11 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CalendarModule } from 'primeng/calendar';
+import { UsersService } from './users.service';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { UserEffects } from 'src/shared/stores/userStore/user.effects';
+import { userReducer } from 'src/shared/stores/userStore/user.reducer';
 
 @NgModule({
   declarations: [
@@ -34,8 +38,10 @@ import { CalendarModule } from 'primeng/calendar';
     InputNumberModule,
     ButtonModule,
     RadioButtonModule,
+    StoreModule.forRoot({ users: userReducer }),
+    EffectsModule.forRoot([UserEffects])
   ],
   exports:[UsersComponent],
-  providers:[UserService]
+  providers:[UsersService]
 })
 export class UsersModule { }

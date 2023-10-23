@@ -1,8 +1,8 @@
 <div class="d-flex justify-content-between">
     <div>
-        <input (input)="search()" type="text" pInputText [(ngModel)]="searchValue" placeholder="search..."/>
+        <input (input)="search()" type="text" pInputText [(ngModel)]="searchValue" placeholder="search..." />
     </div>
-    
+
     <div class="card flex justify-content-center">
         <p-sidebar [(visible)]="sidebarVisible" position="right">
             <div class="filter-card">
@@ -10,31 +10,31 @@
                 <div class="d-flex flex-row justify-content-start mr-1">
                     <div class="d-flex justify-content-center">
                         <p-checkbox [(ngModel)]="gender" inputId="male" value="male" (click)="search()"></p-checkbox>
-                        <label class="d-flex align-items-center" for="male"  class="mr-1">Male</label>
+                        <label class="d-flex align-items-center" for="male" class="mr-1">Male</label>
                     </div>
                     <div class="d-flex justify-content-center mr-1">
                         <p-checkbox [(ngModel)]="gender" inputId="female" value="female" (click)="search()"></p-checkbox>
-                        <label class="d-flex align-items-center" for="female"  class="mr-1">Female</label>
+                        <label class="d-flex align-items-center" for="female" class="mr-1">Female</label>
                     </div>
                 </div>
             </div>
             <div class="filter-card">
                 <h3>Age</h3>
-                <p-inputNumber [(ngModel)]="ageNumber" [showButtons]="true" spinnerMode="vertical" inputId="vertical" decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" ></p-inputNumber>
+                <p-inputNumber [(ngModel)]="ageNumber" [showButtons]="true" spinnerMode="vertical" inputId="vertical" decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"></p-inputNumber>
                 <div class="d-flex flex-row justify-content-around mt-2 mb-2">
                     <div class="d-flex justify-content-center mr-1" *ngFor="let filter of ageFilter">
                         <p-radioButton [(ngModel)]="ageText" name="age" inputId="equal" [value]="filter"></p-radioButton>
-                        <label class="d-flex align-items-center" [for]="filter"  class="mr-1">{{filter}}</label>
+                        <label class="d-flex align-items-center" [for]="filter" class="mr-1">{{filter}}</label>
                     </div>
                 </div>
                 <p-button label="submit" (click)="search()"></p-button>
             </div>
             <div class="filter-card">
                 <h3>eye color</h3>
-                <div class="d-flex flex-wrap" >
+                <div class="d-flex flex-wrap">
                     <div class="d-flex justify-content-center mr-1 mt-1 w-50" *ngFor="let color of eyeColors">
                         <p-checkbox [(ngModel)]="eyeColor" [inputId]="color" [value]="color" (click)="search()"></p-checkbox>
-                        <label class="d-flex align-items-center" [for]="color"  class="mr-1">{{color}}</label>
+                        <label class="d-flex align-items-center" [for]="color" class="mr-1">{{color}}</label>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="mb-2">
                     <h5>to:</h5>
-                    <p-calendar [(ngModel)]="maxBirthdateRange" class="max-w-full" [inline]="true" [showWeek]="true"  [readonlyInput]="true"></p-calendar>
+                    <p-calendar [(ngModel)]="maxBirthdateRange" class="max-w-full" [inline]="true" [showWeek]="true" [readonlyInput]="true"></p-calendar>
                 </div>
                 <p-button label="submit" (click)="search()"></p-button>
             </div>
@@ -57,7 +57,7 @@
 </div>
 
 <div class="card-container mt-2">
-    <p-table [value]="this.filteresUsers" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="this.filterUsers" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
                 <th class="t-center">firstName</th>

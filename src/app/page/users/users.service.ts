@@ -6,7 +6,9 @@ import { UsersModule } from "src/app/page/users/users.module";
 @Injectable({
     providedIn: null
 })
-export class UserService{
+export class UsersService{
+
+    private _baseUrl: string = 'https://dummyjson.com/'
 
     constructor(public http: HttpClient){}
     
